@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hangman Game</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body onload="startUp()">
+
+
+        
+    <header id="header">Nick's Favorite Movies Hangman</header>    
+  
+    <div class="wrapper">
+        
+    
+        
+    
+    <input id="letter" type="text">
+            <input type="button" value="Guess" onClick="Letter()"/>
+        
+        <p id="answer"></p>
+        <p id="counter"></p>
+        <p id="stat"></p>
+        <p id="wrongGuess"></p>
+ 
+      
+            <div id="headerlives">
+             <p>You Have <strong><span id="lives">7</span></strong> Lives Left.</p>
+            </div>
+            
+              <div id="guesses">
+                  <h2>You Have Guessed</h2>
+                      <p><strong id="previousGuesses"><em>nothing yet...guess a letter</em></strong></p>
+              </div>
+          </div>
+          <div class="footer">
+              <div id="resetButton" ><h3><a id="reset">Play Again!</a></h3></div>
+          </div>
+       
+         
+<script>
+var randomMovieArray = ["amelie", "la confidential", "it follows", "her", "kind hearts and coronets"];
+var randomMovie = randomMovieArray[Math.floor(Math.random() * randomMovieArray.length)];
+
+
+var x;
+var count = 0;
+var answerArray = [];
+var lives = 7;
+var validGuess = false;
+
+
+function startUp() 
+{
+    
+    count = 0;
+    answerArray = [];
+    lives = 7;
+    validGuess = false;
+    randomMovie = randomMovieArray[Math.floor(Math.random() * randomMovieArray.length)];
+    document.getElementById("letter").readOnly = false;
+    document.getElementById("previousGuesses").innerHTML = "<em>nothing yet...guess a letter</em>";
+    document.getElementById("counter").innerHTML = "No of guesses: " + count;
+    document.getElementById("lives").innerHTML =  lives;
+    for (var i = 0; i < randomMovie.length; i++) {
+        answerArray[i] = "_";
+    }
+
+        x = answerArray.join(" ");
+        document.getElementById("answer").innerHTML = x;
+    }
+
+function Letter() 
+{
+    
+    var letter = document.getElementById("letter").value;
+
+    if (letter.length > 0)
+    {
+        for (var i = 0; i < randomMovie.length; i++) 
+        {
+            if (randomMovie[i] === letter) 
+            {
+                validGuess = true;
+                answerArray[i] = letter;
+            } 
+
+        }
+        count++;
+        document.getElementById("counter").innerHTML = "No of guesses: " + count;
+        document.getElementById("answer").innerHTML = answerArray.join(" ");
+        
+        
+
+    }
+    
+    if(validGuess == true){
+        validGuess = false;
+    }else{
+        wrongGuess();
+        
+    }
+
+    function printRandomMovie(){
+    for (var i = 0; i < randomMovie.length; i++){
+        var wrongGuess = document.getElementById("guesses");
+        var wrongField = document.createTextNode(wrongGuess.value);
+        wrongGuess.appendChild(wrongField);
+    }
+}
+   
+    var correct = true;
+    for (var i = 0; i < randomMovie.length; i++){
+        if(answerArray[i] === "_") {
+            correct = false;
+        }
+    }
+    if(correct){
+        window.alert("You win!");
+    }
+    
+    
+    
+    if(lives<1) {
+
+        document.getElementById("stat").innerHTML = "Game Over!";
+        document.getElementBYID("letter").readOnly = true;
+    }
+    document.getElementById("letter").value = "";
+}
+
+function wrongGuess(){
+    lives--;
+    document.getElementById("lives").innerHTML =  lives;
+    var wrongGuess = document.getElementById("letter").value;
+    if (lives == 6){
+        document.getElementById("previousGuesses").innerHTML = wrongGuess;
+    }else{
+        var html = document.getElementById("previousGuesses").innerHTML;
+        html += " " + wrongGuess;
+        document.getElementById("previousGuesses").innerHTML = html;
+    }
+}
+  
+document.getElementById("resetButton").addEventListener("click", startUp);
+</script>    
+     
+</body>
+</html>

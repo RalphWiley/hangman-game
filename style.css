@@ -1,0 +1,50 @@
+#header {
+    text-align: center;
+    font-size: 45px;
+    padding: 25px;
+    width: 50%;
+    border-radius: 5px;
+    background-color: #dddddd;
+    margin: 5% auto;
+}
+
+.wrapper {
+    width: 75%;
+    border-radius: 5px;
+    padding: 80px;
+    background-color: #dddddd;
+    margin: 10% auto;
+    text-align: center;
+}
+
+body {
+    background: url("00562d78edc252b.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+  
+#answer {
+    margin-top: 25px;
+}
+
+.previousGuesses {
+    width: 25%;
+    padding: 10px;
+    background-color: white;
+}
+
+.footer {
+    color: blue;
+    background-color: #dddddd;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 10%;
+    text-align: center;
+    margin: 10% auto;
+}
+
+.footer a:hover{
+    color: red;
+}
